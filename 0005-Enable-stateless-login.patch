@@ -1,0 +1,36 @@
+From 35b2e35eb2085c9bbec9647d0d123cce96d45388 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 3 Apr 2018 19:52:15 +0000
+Subject: [PATCH 05/10] Enable stateless login
+
+---
+ lib/getdef.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/lib/getdef.c b/lib/getdef.c
+index a181cc2..df86e05 100644
+--- a/lib/getdef.c
++++ b/lib/getdef.c
+@@ -442,6 +442,19 @@ static void def_load (void)
+ 	 */
+ 	def_loaded = true;
+ 
++	(void)putdef_str ("TTYGROUP", "tty");
++	(void)putdef_str ("HUSHLOGIN_FILE", ".hushlogin");
++	(void)putdef_str ("ERASECHAR", "0177");
++	(void)putdef_str ("KILLCHAR", "025");
++	(void)putdef_str ("SYS_UID_MIN", "500");
++	(void)putdef_str ("SYS_GID_MIN", "500");
++	(void)putdef_str ("ENCRYPT_METHOD", "SHA512");
++	(void)putdef_str ("DEFAULT_HOME", "yes");
++	(void)putdef_str ("USERGROUPS_ENAB", "yes");
++	(void)putdef_str ("CREATE_HOME", "yes");
++	(void)putdef_str ("MAIL_FILE", ".mail");
++	(void)putdef_str ("FORCE_SHADOW", "yes");
++
+ 	/*
+ 	 * Open the configuration definitions file.
+ 	 */
+-- 
+2.16.2
+

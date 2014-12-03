@@ -1,0 +1,37 @@
+From 553d2456afc5526134044607b3583ae7befab626 Mon Sep 17 00:00:00 2001
+From: Dimitri John Ledkov <dimitri.j.ledkov@intel.com>
+Date: Fri, 6 Feb 2015 14:30:33 +0000
+Subject: [PATCH 03/10] shadow stateless config.
+
+---
+ src/useradd.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/src/useradd.c b/src/useradd.c
+index 68a3582..401a45d 100644
+--- a/src/useradd.c
++++ b/src/useradd.c
+@@ -75,7 +75,7 @@
+ #endif
+ 
+ #ifndef SKEL_DIR
+-#define SKEL_DIR "/etc/skel"
++#define SKEL_DIR "/usr/share/defaults/skel"
+ #endif
+ #ifndef USER_DEFAULTS_FILE
+ #define USER_DEFAULTS_FILE "/etc/default/useradd"
+@@ -96,9 +96,9 @@ const char *Prog;
+  * These defaults are used if there is no defaults file.
+  */
+ static gid_t def_group = 100;
+-static const char *def_gname = "other";
++static const char *def_gname = "users";
+ static const char *def_home = "/home";
+-static const char *def_shell = "";
++static const char *def_shell = "/bin/bash";
+ static const char *def_template = SKEL_DIR;
+ static const char *def_create_mail_spool = "no";
+ 
+-- 
+2.16.2
+
