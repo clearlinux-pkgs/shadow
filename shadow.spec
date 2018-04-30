@@ -89,92 +89,92 @@ install %{SOURCE6} pam.d/
 rm -f %{buildroot}%{_sysconfdir}/default/useradd
 rm -f %{buildroot}%{_sysconfdir}/login.defs
 
-install -d %{buildroot}%{_datadir}/pam.d/
-install -m 0644 pam.d/* %{buildroot}%{_datadir}/pam.d/
+install -d %{buildroot}/usr/share/pam.d/
+install -m 0644 pam.d/* %{buildroot}/usr/share/pam.d/
 
 # Handle link properly after rename, otherwise missing files would
 # lead rpm failed dependencies.
-ln -sf newgrp %{buildroot}%{_bindir}/sg
+ln -sf newgrp %{buildroot}/usr/bin/sg
 
 # util-linux provides /usr/bin/su
-rm %{buildroot}%{_bindir}/su
-rm %{buildroot}%{_datadir}/pam.d/su
+rm %{buildroot}/usr/bin/su
+rm %{buildroot}/usr/share/pam.d/su
 find %{buildroot} -type f -name 'su.1' -exec rm {} \;
 
 %find_lang %{name}
 
 %files
-%{_bindir}/groups
-%{_bindir}/login
-%{_bindir}/chfn
-%{_bindir}/chsh
-%{_bindir}/newgrp
-%{_bindir}/passwd
-%{_bindir}/newgidmap
-%{_bindir}/newuidmap
-%{_bindir}/chpasswd
-%{_bindir}/vigr
-%{_bindir}/vipw
-%{_datadir}/pam.d/chage
-%{_datadir}/pam.d/chfn
-%{_datadir}/pam.d/chgpasswd
-%{_datadir}/pam.d/chpasswd
-%{_datadir}/pam.d/chsh
-%{_datadir}/pam.d/groupadd
-%{_datadir}/pam.d/groupdel
-%{_datadir}/pam.d/groupmems
-%{_datadir}/pam.d/groupmod
-%{_datadir}/pam.d/newusers
-%exclude %{_datadir}/pam.d/login
-%{_datadir}/pam.d/passwd
-%{_datadir}/pam.d/useradd
-%{_datadir}/pam.d/userdel
-%{_datadir}/pam.d/usermod
-%{_bindir}/chage
-%{_bindir}/expiry
-%{_bindir}/faillog
-%{_bindir}/gpasswd
-%{_bindir}/lastlog
-%{_bindir}/sg
-%{_bindir}/chgpasswd
-%{_bindir}/groupadd
-%{_bindir}/groupdel
-%{_bindir}/groupmems
-%{_bindir}/groupmod
-%{_bindir}/grpck
-%{_bindir}/grpconv
-%{_bindir}/grpunconv
-%{_bindir}/logoutd
-%{_bindir}/newusers
-%{_bindir}/pwck
-%{_bindir}/pwconv
-%{_bindir}/pwunconv
-%{_bindir}/useradd
-%{_bindir}/userdel
-%{_bindir}/usermod
-%{_bindir}/nologin
+/usr/bin/groups
+/usr/bin/login
+/usr/bin/chfn
+/usr/bin/chsh
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/bin/newgidmap
+/usr/bin/newuidmap
+/usr/bin/chpasswd
+/usr/bin/vigr
+/usr/bin/vipw
+/usr/share/pam.d/chage
+/usr/share/pam.d/chfn
+/usr/share/pam.d/chgpasswd
+/usr/share/pam.d/chpasswd
+/usr/share/pam.d/chsh
+/usr/share/pam.d/groupadd
+/usr/share/pam.d/groupdel
+/usr/share/pam.d/groupmems
+/usr/share/pam.d/groupmod
+/usr/share/pam.d/newusers
+%exclude /usr/share/pam.d/login
+/usr/share/pam.d/passwd
+/usr/share/pam.d/useradd
+/usr/share/pam.d/userdel
+/usr/share/pam.d/usermod
+/usr/bin/chage
+/usr/bin/expiry
+/usr/bin/faillog
+/usr/bin/gpasswd
+/usr/bin/lastlog
+/usr/bin/sg
+/usr/bin/chgpasswd
+/usr/bin/groupadd
+/usr/bin/groupdel
+/usr/bin/groupmems
+/usr/bin/groupmod
+/usr/bin/grpck
+/usr/bin/grpconv
+/usr/bin/grpunconv
+/usr/bin/logoutd
+/usr/bin/newusers
+/usr/bin/pwck
+/usr/bin/pwconv
+/usr/bin/pwunconv
+/usr/bin/useradd
+/usr/bin/userdel
+/usr/bin/usermod
+/usr/bin/nologin
 
 %files -n shadow-doc
-%{_mandir}/cs/
-%{_mandir}/de/
-%{_mandir}/da/
-%{_mandir}/fi/
-%{_mandir}/fr/
-%{_mandir}/hu/
-%{_mandir}/id/
-%{_mandir}/it/
-%{_mandir}/ja/
-%{_mandir}/ko/
-%{_mandir}/pl/
-%{_mandir}/pt_BR/
-%{_mandir}/ru/
-%{_mandir}/sv/
-%{_mandir}/tr/
-%{_mandir}/zh_CN/
-%{_mandir}/zh_TW/
-%{_mandir}/man1/*
-%{_mandir}/man3/*
-%{_mandir}/man5/*
-%{_mandir}/man8/*
+/usr/share/man/cs/
+/usr/share/man/de/
+/usr/share/man/da/
+/usr/share/man/fi/
+/usr/share/man/fr/
+/usr/share/man/hu/
+/usr/share/man/id/
+/usr/share/man/it/
+/usr/share/man/ja/
+/usr/share/man/ko/
+/usr/share/man/pl/
+/usr/share/man/pt_BR/
+/usr/share/man/ru/
+/usr/share/man/sv/
+/usr/share/man/tr/
+/usr/share/man/zh_CN/
+/usr/share/man/zh_TW/
+/usr/share/man/man1/*
+/usr/share/man/man3/*
+/usr/share/man/man5/*
+/usr/share/man/man8/*
 
 %files -n shadow-locale -f %{name}.lang
