@@ -1,11 +1,11 @@
 Name:           shadow
-Version:        4.5
-Release:        46
+Version:        4.6
+Release:        47
 License:        BSD-3-Clause Artistic-1.0
 Summary:        Tools to change and administer password and group data
 Url:            http://pkg-shadow.alioth.debian.org
 Group:          base utils
-Source0:        https://github.com/shadow-maint/shadow/releases/download/4.5/shadow-4.5.tar.xz
+Source0:        https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source1:        chfn
 Source2:        chpasswd
 Source3:        chsh

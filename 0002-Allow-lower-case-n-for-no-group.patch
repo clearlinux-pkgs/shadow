@@ -1,6 +1,6 @@
-From 34b9e5f5ea7573010209090178aff9d686fd6b56 Mon Sep 17 00:00:00 2001
+From c94cd2632cf91e83b1459dd969e37b664e814839 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
-Date: Tue, 3 Apr 2018 19:49:38 +0000
+Date: Wed, 2 May 2018 17:46:36 +0000
 Subject: [PATCH 02/10] Allow lower case n for no group
 
 ---
@@ -8,10 +8,10 @@ Subject: [PATCH 02/10] Allow lower case n for no group
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/src/useradd.c b/src/useradd.c
-index 0e0fa1f..68a3582 100644
+index e721e52..30ac3c2 100644
 --- a/src/useradd.c
 +++ b/src/useradd.c
-@@ -1045,6 +1045,7 @@ static void process_flags (int argc, char **argv)
+@@ -1099,6 +1099,7 @@ static void process_flags (int argc, char **argv)
  			{"create-home",    no_argument,       NULL, 'm'},
  			{"no-create-home", no_argument,       NULL, 'M'},
  			{"no-user-group",  no_argument,       NULL, 'N'},
@@ -19,19 +19,19 @@ index 0e0fa1f..68a3582 100644
  			{"non-unique",     no_argument,       NULL, 'o'},
  			{"password",       required_argument, NULL, 'p'},
  			{"system",         no_argument,       NULL, 'r'},
-@@ -1059,9 +1060,9 @@ static void process_flags (int argc, char **argv)
+@@ -1114,9 +1115,9 @@ static void process_flags (int argc, char **argv)
  		};
  		while ((c = getopt_long (argc, argv,
  #ifdef WITH_SELINUX
--		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:s:u:UZ:",
-+		                         "b:c:d:De:f:g:G:hk:K:lmMNnop:rR:s:u:UZ:",
+-		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:UZ:",
++		                         "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:UZ:",
  #else				/* !WITH_SELINUX */
--		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:s:u:U",
-+		                         "b:c:d:De:f:g:G:hk:K:lmMNnop:rR:s:u:U",
+-		                         "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:U",
++		                         "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:U",
  #endif				/* !WITH_SELINUX */
  		                         long_options, NULL)) != -1) {
  			switch (c) {
-@@ -1212,6 +1213,7 @@ static void process_flags (int argc, char **argv)
+@@ -1267,6 +1268,7 @@ static void process_flags (int argc, char **argv)
  			case 'M':
  				Mflg = true;
  				break;
@@ -40,5 +40,5 @@ index 0e0fa1f..68a3582 100644
  				Nflg = true;
  				break;
 -- 
-2.16.2
+2.17.0
 
