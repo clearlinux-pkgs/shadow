@@ -1,1 +1,2 @@
  --with-libpam --with-libcrack --without-nscd
+--with-group-name-max-length=32

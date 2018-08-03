@@ -1,6 +1,6 @@
 Name:           shadow
 Version:        4.6
-Release:        48
+Release:        49
 License:        BSD-3-Clause Artistic-1.0
 Summary:        Tools to change and administer password and group data
 Url:            http://pkg-shadow.alioth.debian.org
@@ -67,6 +67,7 @@ export CFLAGS="$CFLAGS -Os -ffunction-sections"
  --with-libpam \
  --with-acl \
  --with-attr \
+ --with-group-name-max-length=32 \
  --sysconfdir=%{_sysconfdir}
 
 make %{?_smp_mflags}
