@@ -102,7 +102,7 @@ rm %{buildroot}/usr/bin/su
 rm %{buildroot}/usr/share/pam.d/su
 find %{buildroot} -type f -name 'su.1' -exec rm {} \;
 
-%find_lang %{name}
+%find_lang shadow
 
 %files
 /usr/bin/groups
@@ -178,4 +178,4 @@ find %{buildroot} -type f -name 'su.1' -exec rm {} \;
 /usr/share/man/man5/*
 /usr/share/man/man8/*
 
-%files -n shadow-locale -f %{name}.lang
+%files -n shadow-locale -f shadow.lang
