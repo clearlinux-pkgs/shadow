@@ -1,6 +1,6 @@
 Name:           shadow
 Version:        4.6
-Release:        50
+Release:        51
 License:        BSD-3-Clause Artistic-1.0
 Summary:        Tools to change and administer password and group data
 Url:            http://pkg-shadow.alioth.debian.org
