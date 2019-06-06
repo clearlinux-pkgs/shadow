@@ -3,3 +3,5 @@
 /etc/login.defs
 /etc/pam.d/login
 /etc/pam.d/su
+/usr/share/pam.d/login
+/usr/share/pam.d/su

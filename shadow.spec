@@ -6,7 +6,7 @@
 #
 Name     : shadow
 Version  : 4.6
-Release  : 56
+Release  : 57
 URL      : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source0  : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source99 : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz.asc
@@ -126,7 +126,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1559842451
+export SOURCE_DATE_EPOCH=1559845992
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -154,7 +154,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1559842451
+export SOURCE_DATE_EPOCH=1559845992
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shadow
 cp COPYING %{buildroot}/usr/share/package-licenses/shadow/COPYING
@@ -212,6 +212,8 @@ find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -nam
 
 %files data
 %defattr(-,root,root,-)
+%exclude /usr/share/pam.d/login
+%exclude /usr/share/pam.d/su
 /usr/share/pam.d/chage
 /usr/share/pam.d/chfn
 /usr/share/pam.d/chgpasswd
@@ -221,10 +223,8 @@ find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -nam
 /usr/share/pam.d/groupdel
 /usr/share/pam.d/groupmems
 /usr/share/pam.d/groupmod
-/usr/share/pam.d/login
 /usr/share/pam.d/newusers
 /usr/share/pam.d/passwd
-/usr/share/pam.d/su
 /usr/share/pam.d/useradd
 /usr/share/pam.d/userdel
 /usr/share/pam.d/usermod
