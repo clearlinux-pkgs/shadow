@@ -1,2 +1,9 @@
- --with-libpam --with-libcrack --without-nscd
+--with-libpam
+--without-libcrack
+--without-selinux
+--enable-nls
+--disable-rpath
+--with-acl
+--with-attr
 --with-group-name-max-length=32
+--sysconfdir=%{_sysconfdir}

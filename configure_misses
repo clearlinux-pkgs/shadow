@@ -1,0 +1,22 @@
+Configure miss: struct stat.st_atimensec
+Configure miss: struct utmp.ut_syslen
+Configure miss: struct utmpx.ut_name
+Configure miss: struct utmpx.ut_syslen
+Configure miss: struct utmpx.ut_addr
+Configure miss: struct utmpx.ut_time
+Configure miss: struct utmpx.ut_xtime
+Configure miss: sgetgrent
+Configure miss: sgetpwent
+Configure miss: working shadow group support
+Configure miss: location of shared mail directory
+Configure miss: location of user mail file
+Configure miss: location of utmp
+Configure miss: libaudit.h usability
+Configure miss: libaudit.h presence
+Configure miss: libaudit.h
+Configure miss: tcb.h usability
+Configure miss: tcb.h presence
+Configure miss: tcb.h
+Configure miss: openpam_ttyconv in -lpam
+Configure miss: security/openpam.h
+Configure miss: use login and su access checking if PAM not used
