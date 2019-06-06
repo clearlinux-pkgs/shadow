@@ -1,6 +1,6 @@
 Name:           shadow
 Version:        4.6
-Release:        51
+Release:        52
 License:        BSD-3-Clause Artistic-1.0
 Summary:        Tools to change and administer password and group data
 Url:            http://pkg-shadow.alioth.debian.org
@@ -26,6 +26,7 @@ Patch7:         0007-Enable-statless-gpasswd.patch
 Patch8:         0008-Enable-stateless-usermod-command.patch
 Patch9:         0009-Stateless-files-might-not-exist-in-etc.patch
 Patch10:        0010-Make-glibc-give-up-memory-we-have-already-released.patch
+Patch11:        0011-Allow-.-inside-usernames-also-allow-uppercase-letter.patch
 
 %description
 Tools to change and administer password and group data.
@@ -56,6 +57,7 @@ Tools to change and administer password and group data.
 %patch8 -p1
 %patch9 -p1
 %patch10 -p1
+%patch11 -p1
 
 %build
 export CFLAGS="$CFLAGS -Os -ffunction-sections"

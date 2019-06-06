@@ -1,0 +1,59 @@
+From 83d9a68a00598d0c60cddded55ec06adcdef7d25 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Mon, 3 Jun 2019 13:45:19 -0700
+Subject: [PATCH] Allow '.' inside usernames, also allow uppercase letters.
+
+Coreutils' chown/chmod already handles '.' gracefully. Existing usernames
+in scripts that are separated by '.' will continue to work correctly. Even
+for future names with a period should not pose an issue, but scripts should
+be converted to use ':'.
+---
+ libmisc/chkname.c | 8 ++++++--
+ man/useradd.8.xml | 2 +-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/libmisc/chkname.c b/libmisc/chkname.c
+index 64f5580..b133a43 100644
+--- a/libmisc/chkname.c
++++ b/libmisc/chkname.c
+@@ -49,18 +49,22 @@
+ static bool is_valid_name (const char *name)
+ {
+ 	/*
+-	 * User/group names must match [a-z_][a-z0-9_-]*[$]
++	 * User/group names must match [a-zA-Z_][a-zA-Z0-9_-\.]*[$]
+ 	 */
+ 	if (('\0' == *name) ||
+-	    !((('a' <= *name) && ('z' >= *name)) || ('_' == *name))) {
++	    !((('a' <= *name) && ('z' >= *name)) ||
++	      (('A' <= *name) && ('Z' >= *name)) ||
++	      ('_' == *name))) {
+ 		return false;
+ 	}
+ 
+ 	while ('\0' != *++name) {
+ 		if (!(( ('a' <= *name) && ('z' >= *name) ) ||
++		      ( ('A' <= *name) && ('Z' >= *name) ) ||
+ 		      ( ('0' <= *name) && ('9' >= *name) ) ||
+ 		      ('_' == *name) ||
+ 		      ('-' == *name) ||
++		      ('.' == *name) ||
+ 		      ( ('$' == *name) && ('\0' == *(name + 1)) )
+ 		     )) {
+ 			return false;
+diff --git a/man/useradd.8.xml b/man/useradd.8.xml
+index 582b39c..5824527 100644
+--- a/man/useradd.8.xml
++++ b/man/useradd.8.xml
+@@ -653,7 +653,7 @@
+       Usernames must start with a lower case letter or an underscore,
+       followed by lower case letters, digits, underscores, or dashes.
+       They can end with a dollar sign.
+-      In regular expression terms: [a-z_][a-z0-9_-]*[$]?
++      In regular expression terms: [a-zA-Z_][a-zA-Z0-9_-\.]*[$]?
+     </para>
+     <para>
+       Usernames may only be up to 32 characters long.
+-- 
+2.21.0
+
