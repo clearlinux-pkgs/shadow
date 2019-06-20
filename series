@@ -10,3 +10,4 @@
 0010-Make-glibc-give-up-memory-we-have-already-released.patch
 0011-Allow-.-inside-usernames-also-allow-uppercase-letter.patch
 0012-add-pam-files.patch
+0013-set-umask-to-027.patch

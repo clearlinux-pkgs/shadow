@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
+Date: Wed, 19 Jun 2019 01:08:42 -0500
+Subject: [PATCH] set umask to 027
+
+To create new $HOME with a privacy concern in a multi-seat install.
+This value can be overwritten with /etc/login.defs file.
+---
+ lib/getdef.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/getdef.h b/lib/getdef.h
+index 46346d8..1b0648e 100644
+--- a/lib/getdef.h
++++ b/lib/getdef.h
+@@ -43,6 +43,6 @@ extern int putdef_str (const char *, const char *);
+ extern void setdef_config_file (const char* file);
+ 
+ /* default UMASK value if not specified in /etc/login.defs */
+-#define		GETDEF_DEFAULT_UMASK	022
++#define		GETDEF_DEFAULT_UMASK	027
+ 
+ #endif				/* _GETDEF_H */
+-- 
+https://clearlinux.org
+
