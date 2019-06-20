@@ -6,7 +6,7 @@
 #
 Name     : shadow
 Version  : 4.6
-Release  : 57
+Release  : 58
 URL      : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source0  : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source99 : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz.asc
@@ -41,8 +41,8 @@ Patch8: 0008-Enable-stateless-usermod-command.patch
 Patch9: 0009-Stateless-files-might-not-exist-in-etc.patch
 Patch10: 0010-Make-glibc-give-up-memory-we-have-already-released.patch
 Patch11: 0011-Allow-.-inside-usernames-also-allow-uppercase-letter.patch
-Patch12: CVE-2018-16588.nopatch
-Patch13: 0012-add-pam-files.patch
+Patch12: 0012-add-pam-files.patch
+Patch13: 0013-set-umask-to-027.patch
 
 %description
 Shadow SITES
@@ -119,6 +119,7 @@ man components for the shadow package.
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 %patch13 -p1
 
 %build
@@ -126,7 +127,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1559845992
+export SOURCE_DATE_EPOCH=1561072801
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -154,7 +155,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1559845992
+export SOURCE_DATE_EPOCH=1561072801
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shadow
 cp COPYING %{buildroot}/usr/share/package-licenses/shadow/COPYING
