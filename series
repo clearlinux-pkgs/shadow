@@ -9,5 +9,4 @@
 0009-Stateless-files-might-not-exist-in-etc.patch
 0010-Make-glibc-give-up-memory-we-have-already-released.patch
 0011-Allow-.-inside-usernames-also-allow-uppercase-letter.patch
-CVE-2018-16588.nopatch
 0012-add-pam-files.patch
