@@ -6,10 +6,10 @@
 #
 Name     : shadow
 Version  : 4.6
-Release  : 58
+Release  : 59
 URL      : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source0  : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
-Source99 : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz.asc
+Source1 : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : Artistic-1.0 BSD-3-Clause
@@ -126,8 +126,8 @@ man components for the shadow package.
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1561072801
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1564462139
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -148,19 +148,27 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-stron
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1561072801
+export SOURCE_DATE_EPOCH=1564462139
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shadow
 cp COPYING %{buildroot}/usr/share/package-licenses/shadow/COPYING
 %make_install
 %find_lang shadow
+## Remove excluded files
+rm -f %{buildroot}/usr/bin/login
+rm -f %{buildroot}/usr/bin/su
+rm -f %{buildroot}/etc/login.defs
+rm -f %{buildroot}/etc/pam.d/login
+rm -f %{buildroot}/etc/pam.d/su
+rm -f %{buildroot}/usr/share/pam.d/login
+rm -f %{buildroot}/usr/share/pam.d/su
 ## install_append content
 rm -f %{buildroot}%{_sysconfdir}/default/useradd
 rm -f %{buildroot}%{_sysconfdir}/login.defs
@@ -175,8 +183,6 @@ find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -nam
 
 %files bin
 %defattr(-,root,root,-)
-%exclude /usr/bin/login
-%exclude /usr/bin/su
 /usr/bin/chage
 /usr/bin/chfn
 /usr/bin/chgpasswd
@@ -213,8 +219,6 @@ find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -nam
 
 %files data
 %defattr(-,root,root,-)
-%exclude /usr/share/pam.d/login
-%exclude /usr/share/pam.d/su
 /usr/share/pam.d/chage
 /usr/share/pam.d/chfn
 /usr/share/pam.d/chgpasswd
