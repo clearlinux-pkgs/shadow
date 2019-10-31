@@ -6,7 +6,7 @@
 #
 Name     : shadow
 Version  : 4.6
-Release  : 59
+Release  : 60
 URL      : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source0  : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz
 Source1 : https://github.com/shadow-maint/shadow/releases/download/4.6/shadow-4.6.tar.xz.asc
@@ -18,6 +18,8 @@ Requires: shadow-data = %{version}-%{release}
 Requires: shadow-license = %{version}-%{release}
 Requires: shadow-locales = %{version}-%{release}
 Requires: shadow-man = %{version}-%{release}
+Requires: Linux-PAM-bin
+Requires: Linux-PAM-lib
 BuildRequires : Linux-PAM-dev
 BuildRequires : acl-dev
 BuildRequires : attr-dev
@@ -30,6 +32,7 @@ BuildRequires : libtool
 BuildRequires : libtool-dev
 BuildRequires : m4
 BuildRequires : pkg-config-dev
+BuildRequires : util-linux
 Patch1: 0001-Make-usermod-read-altfiles.patch
 Patch2: 0002-Allow-lower-case-n-for-no-group.patch
 Patch3: 0003-shadow-stateless-config.patch
@@ -108,6 +111,7 @@ man components for the shadow package.
 
 %prep
 %setup -q -n shadow-4.6
+cd %{_builddir}/shadow-4.6
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -127,8 +131,11 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1564462139
+export SOURCE_DATE_EPOCH=1572545294
 export GCC_IGNORE_WERROR=1
+export CFLAGS="-O2 -g -Wp,-D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector --param=ssp-buffer-size=32 -Wformat -Wformat-security -Wno-error -Wl,-z,max-page-size=0x1000 -march=westmere -mtune=haswell"
+export CXXFLAGS=$CFLAGS
+unset LDFLAGS
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -155,10 +162,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1564462139
+export SOURCE_DATE_EPOCH=1572545294
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shadow
-cp COPYING %{buildroot}/usr/share/package-licenses/shadow/COPYING
+cp %{_builddir}/shadow-4.6/COPYING %{buildroot}/usr/share/package-licenses/shadow/b51e7b0e6ab991ba3a9b74fbcc50f7096836f1cb
 %make_install
 %find_lang shadow
 ## Remove excluded files
@@ -241,7 +248,7 @@ find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -nam
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/shadow/COPYING
+/usr/share/package-licenses/shadow/b51e7b0e6ab991ba3a9b74fbcc50f7096836f1cb
 
 %files man
 %defattr(0644,root,root,0755)
