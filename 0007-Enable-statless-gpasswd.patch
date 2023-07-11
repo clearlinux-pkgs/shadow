@@ -1,17 +1,17 @@
-From 13bfdff3851a192a617d1dbe4b824733acf0c641 Mon Sep 17 00:00:00 2001
+From 323b5b2927aab8264aae37e238420c526570ea98 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 3 Apr 2018 19:55:01 +0000
-Subject: [PATCH 07/10] Enable statless gpasswd
+Subject: [PATCH 07/11] Enable statless gpasswd
 
 ---
  src/gpasswd.c | 46 +++++++++++++++++++++++++++++++++++++++++-----
  1 file changed, 41 insertions(+), 5 deletions(-)
 
 diff --git a/src/gpasswd.c b/src/gpasswd.c
-index c4a492b..c63aee4 100644
+index 5983f78..0fdcc55 100644
 --- a/src/gpasswd.c
 +++ b/src/gpasswd.c
-@@ -377,6 +377,14 @@ static void open_files (void)
+@@ -356,6 +356,14 @@ static void open_files (void)
  		exit (E_NOPERM);
  	}
  
@@ -26,7 +26,7 @@ index c4a492b..c63aee4 100644
  #ifdef SHADOWGRP
  	if (is_shadowgrp) {
  		if (sgr_open (O_CREAT | O_RDWR) == 0) {
-@@ -667,6 +675,14 @@ static void close_files (void)
+@@ -646,6 +654,14 @@ static void close_files (void)
  		         Prog, gr_dbname ());
  		exit (E_NOPERM);
  	}
@@ -41,7 +41,7 @@ index c4a492b..c63aee4 100644
  	add_cleanup (log_gpasswd_success_group, NULL);
  	del_cleanup (log_gpasswd_failure_group);
  
-@@ -801,19 +817,29 @@ static void get_group (struct group *gr)
+@@ -780,19 +796,29 @@ static void get_group (struct group *gr)
  #ifdef SHADOWGRP
  	struct sgrp const*tmpsg = NULL;
  #endif
@@ -76,7 +76,7 @@ index c4a492b..c63aee4 100644
  	}
  
  	*gr = *tmpgr;
-@@ -831,6 +857,16 @@ static void get_group (struct group *gr)
+@@ -810,6 +836,16 @@ static void get_group (struct group *gr)
  		exit (E_NOPERM);
  	}
  
@@ -94,5 +94,5 @@ index c4a492b..c63aee4 100644
  	if (is_shadowgrp) {
  		if (sgr_open (O_RDONLY) == 0) {
 -- 
-2.16.2
+2.41.0
 

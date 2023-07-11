@@ -1,6 +1,27 @@
-diff -Nurb /dev/null b/pam.d/chfn
---- /dev/null	1969-12-31 16:00:00.000000000 -0800
-+++ b/pam.d/chfn	2018-03-27 13:29:06.324172430 -0700
+From 2b89a92f59eec1d0965d8fe3ea3a205dc7fabe08 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 11 Jul 2023 16:42:04 -0700
+Subject: [PATCH 10/11] Add pam files
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ pam.d/chfn     | 14 ++++++++++++++
+ pam.d/chpasswd |  8 ++++++++
+ pam.d/chsh     | 19 +++++++++++++++++++
+ pam.d/newusers |  4 ++++
+ pam.d/passwd   |  5 +++++
+ 5 files changed, 50 insertions(+)
+ create mode 100644 pam.d/chfn
+ create mode 100644 pam.d/chpasswd
+ create mode 100644 pam.d/chsh
+ create mode 100644 pam.d/newusers
+ create mode 100644 pam.d/passwd
+
+diff --git a/pam.d/chfn b/pam.d/chfn
+new file mode 100644
+index 0000000..baf7698
+--- /dev/null
++++ b/pam.d/chfn
 @@ -0,0 +1,14 @@
 +#
 +# The PAM configuration file for the Shadow `chfn' service
@@ -16,9 +37,11 @@ diff -Nurb /dev/null b/pam.d/chfn
 +auth       include      common-auth
 +account    include      common-account
 +session    include      common-session
-diff -Nurb /dev/null b/pam.d/chpasswd
---- /dev/null	1969-12-31 16:00:00.000000000 -0800
-+++ b/pam.d/chpasswd	2018-03-27 13:29:06.324172430 -0700
+diff --git a/pam.d/chpasswd b/pam.d/chpasswd
+new file mode 100644
+index 0000000..1082998
+--- /dev/null
++++ b/pam.d/chpasswd
 @@ -0,0 +1,8 @@
 +# The PAM configuration file for the Shadow 'chpasswd' service
 +#
@@ -28,9 +51,11 @@ diff -Nurb /dev/null b/pam.d/chpasswd
 +account    required     pam_unix.so
 +session    required     pam_unix.so
 +password   include      common-password
-diff -Nurb /dev/null b/pam.d/chsh
---- /dev/null	1969-12-31 16:00:00.000000000 -0800
-+++ b/pam.d/chsh	2018-03-27 13:29:06.324172430 -0700
+diff --git a/pam.d/chsh b/pam.d/chsh
+new file mode 100644
+index 0000000..8fb169f
+--- /dev/null
++++ b/pam.d/chsh
 @@ -0,0 +1,19 @@
 +#
 +# The PAM configuration file for the Shadow `chsh' service
@@ -51,20 +76,27 @@ diff -Nurb /dev/null b/pam.d/chsh
 +auth       include      common-auth
 +account    include      common-account
 +session    include      common-session
-diff -Nurb /dev/null b/pam.d/newusers
---- /dev/null	1969-12-31 16:00:00.000000000 -0800
-+++ b/pam.d/newusers	2018-03-27 13:29:06.324172430 -0700
+diff --git a/pam.d/newusers b/pam.d/newusers
+new file mode 100644
+index 0000000..4aa3dde
+--- /dev/null
++++ b/pam.d/newusers
 @@ -0,0 +1,4 @@
 +# The PAM configuration file for the Shadow 'newusers' service
 +#
 +
 +password   include      common-password
-diff -Nurb /dev/null b/pam.d/passwd
---- /dev/null	1969-12-31 16:00:00.000000000 -0800
-+++ b/pam.d/passwd	2018-03-27 13:29:06.324172430 -0700
+diff --git a/pam.d/passwd b/pam.d/passwd
+new file mode 100644
+index 0000000..f534992
+--- /dev/null
++++ b/pam.d/passwd
 @@ -0,0 +1,5 @@
 +#
 +# The PAM configuration file for the Shadow `passwd' service
 +#
 +
 +password   include      common-password
+-- 
+2.41.0
+

@@ -1,0 +1,42 @@
+From c1d63f1e9a7bee18f6b387a9002f4e9e7a9a184b Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 11 Jul 2023 16:25:20 -0700
+Subject: [PATCH 02/11] Allow lower case n for n group
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ src/useradd.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/useradd.c b/src/useradd.c
+index 7ea0a9c..37051a6 100644
+--- a/src/useradd.c
++++ b/src/useradd.c
+@@ -1213,6 +1213,7 @@ static void process_flags (int argc, char **argv)
+ 			{"create-home",    no_argument,       NULL, 'm'},
+ 			{"no-create-home", no_argument,       NULL, 'M'},
+ 			{"no-user-group",  no_argument,       NULL, 'N'},
++			{"no-user-group2",  no_argument,       NULL, 'n'},
+ 			{"non-unique",     no_argument,       NULL, 'o'},
+ 			{"password",       required_argument, NULL, 'p'},
+ 			{"system",         no_argument,       NULL, 'r'},
+@@ -1227,7 +1228,7 @@ static void process_flags (int argc, char **argv)
+ 			{NULL, 0, NULL, '\0'}
+ 		};
+ 		while ((c = getopt_long (argc, argv,
+-					 "b:c:d:De:f:g:G:hk:K:lmMNop:rR:P:s:u:U"
++					 "b:c:d:De:f:g:G:hk:K:lmMnNop:rR:P:s:u:U"
+ #ifdef WITH_SELINUX
+ 		                         "Z:"
+ #endif				/* WITH_SELINUX */
+@@ -1395,6 +1396,7 @@ static void process_flags (int argc, char **argv)
+ 			case 'M':
+ 				Mflg = true;
+ 				break;
++			case 'n':
+ 			case 'N':
+ 				Nflg = true;
+ 				break;
+-- 
+2.41.0
+

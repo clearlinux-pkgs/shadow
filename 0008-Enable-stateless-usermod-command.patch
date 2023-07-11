@@ -1,22 +1,23 @@
-From d44d4dcfe0db85e83f5718955c5fe51b0bbe75c4 Mon Sep 17 00:00:00 2001
+From 2634b3776886385628846a5585b0a885f48cea2c Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
-Date: Tue, 3 Apr 2018 19:56:26 +0000
-Subject: [PATCH 08/10] Enable stateless usermod command
+Date: Tue, 11 Jul 2023 16:35:20 -0700
+Subject: [PATCH 08/11] Enable stateless usermod command
 
+Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
- lib/defines.h  |  8 ++++++
- lib/pwio.c     | 51 ++++++++++++++++++++++++++++++++++++
+ lib/defines.h  |  8 +++++
+ lib/pwio.c     | 51 +++++++++++++++++++++++++++++++
  lib/pwio.h     |  4 +++
- lib/shadowio.c | 82 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+ lib/shadowio.c | 82 +++++++++++++++++++++++++++++++++++++++++++++++++-
  lib/shadowio.h |  4 +++
- src/usermod.c  | 46 +++++++++++++++++++++++++++-----
+ src/usermod.c  | 46 ++++++++++++++++++++++++----
  6 files changed, 188 insertions(+), 7 deletions(-)
 
 diff --git a/lib/defines.h b/lib/defines.h
-index 8d21d30..fb9470a 100644
+index 678898e..e44a992 100644
 --- a/lib/defines.h
 +++ b/lib/defines.h
-@@ -302,6 +302,10 @@ char *strchr (), *strrchr (), *strtok ();
+@@ -253,6 +253,10 @@ static inline void memzero(void *ptr, size_t size)
  #define PASSWD_FILE "/etc/passwd"
  #endif
  
@@ -27,7 +28,7 @@ index 8d21d30..fb9470a 100644
  #ifndef GROUP_FILE
  #define GROUP_FILE "/etc/group"
  #endif
-@@ -314,6 +318,10 @@ char *strchr (), *strrchr (), *strtok ();
+@@ -265,6 +269,10 @@ static inline void memzero(void *ptr, size_t size)
  #define SHADOW_FILE "/etc/shadow"
  #endif
  
@@ -39,11 +40,11 @@ index 8d21d30..fb9470a 100644
  #ifndef SGROUP_FILE
  #define SGROUP_FILE "/etc/gshadow"
 diff --git a/lib/pwio.c b/lib/pwio.c
-index 7ee8537..47ce7df 100644
+index e59b473..00a1dc3 100644
 --- a/lib/pwio.c
 +++ b/lib/pwio.c
-@@ -117,6 +117,37 @@ static struct commonio_db passwd_db = {
- 	false			/* readonly */
+@@ -98,6 +98,37 @@ static struct commonio_db passwd_db = {
+ 	false			/* setname */
  };
  
 +static struct commonio_ops passwd_altops = {
@@ -80,7 +81,7 @@ index 7ee8537..47ce7df 100644
  int pw_setdbname (const char *filename)
  {
  	return commonio_setname (&passwd_db, filename);
-@@ -127,6 +158,11 @@ int pw_setdbname (const char *filename)
+@@ -108,6 +139,11 @@ int pw_setdbname (const char *filename)
  	return passwd_db.filename;
  }
  
@@ -92,7 +93,7 @@ index 7ee8537..47ce7df 100644
  int pw_lock (void)
  {
  	return commonio_lock (&passwd_db);
-@@ -137,11 +173,21 @@ int pw_open (int mode)
+@@ -118,11 +154,21 @@ int pw_open (int mode)
  	return commonio_open (&passwd_db, mode);
  }
  
@@ -114,7 +115,7 @@ index 7ee8537..47ce7df 100644
  /*@observer@*/ /*@null@*/const struct passwd *pw_locate_uid (uid_t uid)
  {
  	const struct passwd *pwd;
-@@ -179,6 +225,11 @@ int pw_close (void)
+@@ -160,6 +206,11 @@ int pw_close (void)
  	return commonio_close (&passwd_db);
  }
  
@@ -127,10 +128,10 @@ index 7ee8537..47ce7df 100644
  {
  	return commonio_unlock (&passwd_db);
 diff --git a/lib/pwio.h b/lib/pwio.h
-index 2db85e0..a25f982 100644
+index 882a7c7..53f2f56 100644
 --- a/lib/pwio.h
 +++ b/lib/pwio.h
-@@ -39,13 +39,17 @@
+@@ -16,13 +16,17 @@
  #include <pwd.h>
  
  extern int pw_close (void);
@@ -149,11 +150,11 @@ index 2db85e0..a25f982 100644
  extern int pw_rewind (void);
  extern int pw_unlock (void);
 diff --git a/lib/shadowio.c b/lib/shadowio.c
-index 5fa3d31..17d67e7 100644
+index 683b6c8..00bea3a 100644
 --- a/lib/shadowio.c
 +++ b/lib/shadowio.c
-@@ -117,6 +117,37 @@ static struct commonio_db shadow_db = {
- 	false			/* readonly */
+@@ -97,6 +97,37 @@ static struct commonio_db shadow_db = {
+ 	false			/* setname */
  };
  
 +static struct commonio_ops shadow_altops = {
@@ -190,7 +191,7 @@ index 5fa3d31..17d67e7 100644
  int spw_setdbname (const char *filename)
  {
  	return commonio_setname (&shadow_db, filename);
-@@ -127,11 +158,17 @@ int spw_setdbname (const char *filename)
+@@ -107,11 +138,17 @@ int spw_setdbname (const char *filename)
  	return shadow_db.filename;
  }
  
@@ -209,7 +210,7 @@ index 5fa3d31..17d67e7 100644
  }
  
  int spw_lock (void)
-@@ -177,11 +214,35 @@ int spw_open (int mode)
+@@ -157,11 +194,35 @@ int spw_open (int mode)
  	return retval;
  }
  
@@ -245,7 +246,7 @@ index 5fa3d31..17d67e7 100644
  int spw_update (const struct spwd *sp)
  {
  	return commonio_update (&shadow_db, (const void *) sp);
-@@ -221,6 +282,25 @@ int spw_close (void)
+@@ -201,6 +262,25 @@ int spw_close (void)
  	return retval;
  }
  
@@ -272,10 +273,10 @@ index 5fa3d31..17d67e7 100644
  {
  #ifdef WITH_TCB
 diff --git a/lib/shadowio.h b/lib/shadowio.h
-index 5384b1d..d01d7ef 100644
+index 4dbeb6d..c7bd8f7 100644
 --- a/lib/shadowio.h
 +++ b/lib/shadowio.h
-@@ -37,13 +37,17 @@
+@@ -14,13 +14,17 @@
  #include "defines.h"
  
  extern int spw_close (void);
@@ -294,10 +295,10 @@ index 5384b1d..d01d7ef 100644
  extern int spw_rewind (void);
  extern int spw_unlock (void);
 diff --git a/src/usermod.c b/src/usermod.c
-index aecaa43..8c22076 100644
+index 2852975..0299b10 100644
 --- a/src/usermod.c
 +++ b/src/usermod.c
-@@ -497,7 +497,8 @@ static char *new_pw_passwd (char *pw_pass)
+@@ -467,7 +467,8 @@ static char *new_pw_passwd (char *pw_pass)
  static void new_pwent (struct passwd *pwent)
  {
  	if (lflg) {
@@ -307,7 +308,7 @@ index aecaa43..8c22076 100644
  			/* This should never happen.
  			 * It was already checked that the user doesn't
  			 * exist on the system.
-@@ -591,7 +592,8 @@ static void new_pwent (struct passwd *pwent)
+@@ -567,7 +568,8 @@ static void new_pwent (struct passwd *pwent)
  static void new_spent (struct spwd *spent)
  {
  	if (lflg) {
@@ -317,7 +318,7 @@ index aecaa43..8c22076 100644
  			fprintf (stderr,
  			         _("%s: user '%s' already exists in %s\n"),
  			         Prog, user_newname, spw_dbname ());
-@@ -1408,6 +1410,13 @@ static void close_files (void)
+@@ -1467,6 +1469,13 @@ static void close_files (void)
  		SYSLOG ((LOG_ERR, "failure while writing changes to %s", pw_dbname ()));
  		fail_exit (E_PW_UPDATE);
  	}
@@ -331,7 +332,7 @@ index aecaa43..8c22076 100644
  	if (is_shadow_pwd && (spw_close () == 0)) {
  		fprintf (stderr,
  		         _("%s: failure while writing changes to %s\n"),
-@@ -1417,6 +1426,15 @@ static void close_files (void)
+@@ -1476,6 +1485,15 @@ static void close_files (void)
  		         spw_dbname ()));
  		fail_exit (E_PW_UPDATE);
  	}
@@ -347,7 +348,7 @@ index aecaa43..8c22076 100644
  
  	if (Gflg || lflg) {
  		if (gr_close () == 0) {
-@@ -1550,6 +1568,12 @@ static void open_files (void)
+@@ -1609,6 +1627,12 @@ static void open_files (void)
  		fail_exit (E_PW_UPDATE);
  	}
  	pw_locked = true;
@@ -360,7 +361,7 @@ index aecaa43..8c22076 100644
  	if (pw_open (O_CREAT | O_RDWR) == 0) {
  		fprintf (stderr,
  		         _("%s: cannot open %s\n"),
-@@ -1563,6 +1587,12 @@ static void open_files (void)
+@@ -1622,6 +1646,12 @@ static void open_files (void)
  		fail_exit (E_PW_UPDATE);
  	}
  	spw_locked = true;
@@ -373,7 +374,7 @@ index aecaa43..8c22076 100644
  	if (is_shadow_pwd && (spw_open (O_CREAT | O_RDWR) == 0)) {
  		fprintf (stderr,
  		         _("%s: cannot open %s\n"),
-@@ -1662,10 +1692,13 @@ static void usr_update (void)
+@@ -1721,10 +1751,13 @@ static void usr_update (void)
  	 */
  	pwd = pw_locate (user_name);
  	if (NULL == pwd) {
@@ -391,7 +392,7 @@ index aecaa43..8c22076 100644
  	}
  	pwent = *pwd;
  	new_pwent (&pwent);
-@@ -1674,6 +1707,7 @@ static void usr_update (void)
+@@ -1733,6 +1766,7 @@ static void usr_update (void)
  	/* If the shadow file does not exist, it won't be created */
  	if (is_shadow_pwd) {
  		spwd = spw_locate (user_name);
@@ -400,5 +401,5 @@ index aecaa43..8c22076 100644
  			/* Update the shadow entry if it exists */
  			spent = *spwd;
 -- 
-2.16.2
+2.41.0
 

@@ -1,19 +1,20 @@
-From 35b2e35eb2085c9bbec9647d0d123cce96d45388 Mon Sep 17 00:00:00 2001
+From 3b56d7092a4843c5481f72d4dc303d796f14a190 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
-Date: Tue, 3 Apr 2018 19:52:15 +0000
-Subject: [PATCH 05/10] Enable stateless login
+Date: Tue, 11 Jul 2023 16:28:31 -0700
+Subject: [PATCH 05/11] Enable stateless login
 
+Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
  lib/getdef.c | 13 +++++++++++++
  1 file changed, 13 insertions(+)
 
 diff --git a/lib/getdef.c b/lib/getdef.c
-index a181cc2..df86e05 100644
+index dcd1fe7..1ddc7e8 100644
 --- a/lib/getdef.c
 +++ b/lib/getdef.c
-@@ -442,6 +442,19 @@ static void def_load (void)
- 	 */
- 	def_loaded = true;
+@@ -415,6 +415,19 @@ static /*@observer@*/ /*@null@*/struct itemdef *def_find (const char *name)
+ 		}
+ 	}
  
 +	(void)putdef_str ("TTYGROUP", "tty");
 +	(void)putdef_str ("HUSHLOGIN_FILE", ".hushlogin");
@@ -29,8 +30,8 @@ index a181cc2..df86e05 100644
 +	(void)putdef_str ("FORCE_SHADOW", "yes");
 +
  	/*
- 	 * Open the configuration definitions file.
+ 	 * Item was never found.
  	 */
 -- 
-2.16.2
+2.41.0
 

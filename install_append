@@ -10,5 +10,8 @@ install -m 0644 pam.d/* %{buildroot}/usr/share/pam.d/
 # lead rpm failed dependencies.
 ln -sf newgrp %{buildroot}/usr/bin/sg
 
+pushd man
+DESTDIR=%{buildroot} make install-man
+popd
 # clean up translated versions of these
 find %{buildroot}/usr/share/man/ -type f \( -name su.1 -o -name groups.1 -o -name login.1 \) -exec rm {} \;

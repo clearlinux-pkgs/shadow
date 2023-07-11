@@ -1,7 +1,7 @@
-From 5acffa2d24de3ccbc908db53913f43a612d56e66 Mon Sep 17 00:00:00 2001
+From 858899e3426395d17c22fe6ac09f1a78963b034e Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Tue, 17 Feb 2015 15:21:11 +0000
-Subject: [PATCH 04/10] Use correct pam.d path
+Subject: [PATCH 04/11] Use correct pam.d path
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 ---
@@ -9,10 +9,10 @@ Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/etc/pam.d/Makefile.am b/etc/pam.d/Makefile.am
-index d967eb9..ab9852e 100644
+index 38ff26a..8e03387 100644
 --- a/etc/pam.d/Makefile.am
 +++ b/etc/pam.d/Makefile.am
-@@ -22,7 +22,7 @@ pamd_acct_tools_files = \
+@@ -21,7 +21,7 @@ pamd_acct_tools_files = \
  	usermod
  
  if USE_PAM
@@ -22,5 +22,5 @@ index d967eb9..ab9852e 100644
  if ACCT_TOOLS_SETUID
  pamd_DATA += $(pamd_acct_tools_files)
 -- 
-2.16.2
+2.41.0
 

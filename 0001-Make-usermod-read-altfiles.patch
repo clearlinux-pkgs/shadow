@@ -1,8 +1,9 @@
-From a88112e43341299206a7d49d4440c9e09aee8d8a Mon Sep 17 00:00:00 2001
-From: Dimitri John Ledkov <dimitri.j.ledkov@intel.com>
-Date: Tue, 7 Apr 2015 16:02:09 -0700
-Subject: [PATCH 01/10] Make usermod, read altfiles.
+From 65d48ba55bd16da5371f05b0509a1cce3dd3a628 Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 11 Jul 2023 16:20:43 -0700
+Subject: [PATCH 01/11] Make usermod, read altfiles.
 
+Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
  lib/defines.h |  4 ++++
  lib/groupio.c | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -11,10 +12,10 @@ Subject: [PATCH 01/10] Make usermod, read altfiles.
  4 files changed, 82 insertions(+)
 
 diff --git a/lib/defines.h b/lib/defines.h
-index 62bd73e..8d21d30 100644
+index d01f691..678898e 100644
 --- a/lib/defines.h
 +++ b/lib/defines.h
-@@ -306,6 +306,10 @@ char *strchr (), *strrchr (), *strtok ();
+@@ -257,6 +257,10 @@ static inline void memzero(void *ptr, size_t size)
  #define GROUP_FILE "/etc/group"
  #endif
  
@@ -26,11 +27,11 @@ index 62bd73e..8d21d30 100644
  #define SHADOW_FILE "/etc/shadow"
  #endif
 diff --git a/lib/groupio.c b/lib/groupio.c
-index ae2302b..e6d9a39 100644
+index 357a30e..ae14628 100644
 --- a/lib/groupio.c
 +++ b/lib/groupio.c
-@@ -142,6 +142,37 @@ static /*@owned@*/struct commonio_db group_db = {
- 	false			/* readonly */
+@@ -120,6 +120,37 @@ static /*@owned@*/struct commonio_db group_db = {
+ 	false			/* setname */
  };
  
 +static struct commonio_ops group_altops = {
@@ -67,7 +68,7 @@ index ae2302b..e6d9a39 100644
  int gr_setdbname (const char *filename)
  {
  	return commonio_setname (&group_db, filename);
-@@ -152,6 +183,11 @@ int gr_setdbname (const char *filename)
+@@ -130,6 +161,11 @@ int gr_setdbname (const char *filename)
  	return group_db.filename;
  }
  
@@ -79,7 +80,7 @@ index ae2302b..e6d9a39 100644
  int gr_lock (void)
  {
  	return commonio_lock (&group_db);
-@@ -162,11 +198,21 @@ int gr_open (int mode)
+@@ -140,11 +176,21 @@ int gr_open (int mode)
  	return commonio_open (&group_db, mode);
  }
  
@@ -101,7 +102,7 @@ index ae2302b..e6d9a39 100644
  /*@observer@*/ /*@null@*/const struct group *gr_locate_gid (gid_t gid)
  {
  	const struct group *grp;
-@@ -204,6 +250,11 @@ int gr_close (void)
+@@ -182,6 +228,11 @@ int gr_close (void)
  	return commonio_close (&group_db);
  }
  
@@ -114,10 +115,10 @@ index ae2302b..e6d9a39 100644
  {
  	return commonio_unlock (&group_db);
 diff --git a/lib/groupio.h b/lib/groupio.h
-index e1f1b02..77b9832 100644
+index 2014de0..8b01653 100644
 --- a/lib/groupio.h
 +++ b/lib/groupio.h
-@@ -39,13 +39,17 @@
+@@ -16,13 +16,17 @@
  #include <grp.h>
  
  extern int gr_close (void);
@@ -136,10 +137,10 @@ index e1f1b02..77b9832 100644
  extern int gr_rewind (void);
  extern int gr_unlock (void);
 diff --git a/src/usermod.c b/src/usermod.c
-index 9c5e479..aecaa43 100644
+index c1a5b2c..2852975 100644
 --- a/src/usermod.c
 +++ b/src/usermod.c
-@@ -721,6 +721,19 @@ static void update_group (void)
+@@ -695,6 +695,19 @@ static void update_group (void)
  
  	changed = false;
  
@@ -159,7 +160,7 @@ index 9c5e479..aecaa43 100644
  	/*
  	 * Scan through the entire group file looking for the groups that
  	 * the user is a member of.
-@@ -1415,6 +1428,11 @@ static void close_files (void)
+@@ -1474,6 +1487,11 @@ static void close_files (void)
  			         gr_dbname ()));
  			fail_exit (E_GRP_UPDATE);
  		}
@@ -171,7 +172,7 @@ index 9c5e479..aecaa43 100644
  #ifdef SHADOWGRP
  		if (is_shadow_grp) {
  			if (sgr_close () == 0) {
-@@ -1564,6 +1582,11 @@ static void open_files (void)
+@@ -1623,6 +1641,11 @@ static void open_files (void)
  			fail_exit (E_GRP_UPDATE);
  		}
  		gr_locked = true;
@@ -184,5 +185,5 @@ index 9c5e479..aecaa43 100644
  			fprintf (stderr,
  			         _("%s: cannot open %s\n"),
 -- 
-2.16.2
+2.41.0
 

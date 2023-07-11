@@ -1,0 +1,35 @@
+From 601efc1e9b19a9cec2f256bc203c39fd51f005df Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 11 Jul 2023 16:27:31 -0700
+Subject: [PATCH 03/11] stateless configs
+
+Signed-off-by: William Douglas <william.douglas@intel.com>
+---
+ src/useradd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/useradd.c b/src/useradd.c
+index 37051a6..e3e5b87 100644
+--- a/src/useradd.c
++++ b/src/useradd.c
+@@ -59,7 +59,7 @@
+ #include "shadowlog.h"
+ 
+ #ifndef SKEL_DIR
+-#define SKEL_DIR "/etc/skel"
++#define SKEL_DIR "/usr/share/defaults/skel"
+ #endif
+ #ifndef USER_DEFAULTS_FILE
+ #define USER_DEFAULTS_FILE "/etc/default/useradd"
+@@ -80,7 +80,7 @@ const char *Prog;
+  * These defaults are used if there is no defaults file.
+  */
+ static gid_t def_group = 1000;
+-static const char *def_gname = "other";
++static const char *def_gname = "users";
+ static const char *def_home = "/home";
+ static const char *def_shell = "/bin/bash";
+ static const char *def_template = SKEL_DIR;
+-- 
+2.41.0
+
