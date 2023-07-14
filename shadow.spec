@@ -7,7 +7,7 @@
 #
 Name     : shadow
 Version  : 4.13
-Release  : 64
+Release  : 65
 URL      : https://github.com/shadow-maint/shadow/releases/download/4.13/shadow-4.13.tar.xz
 Source0  : https://github.com/shadow-maint/shadow/releases/download/4.13/shadow-4.13.tar.xz
 Source1  : https://github.com/shadow-maint/shadow/releases/download/4.13/shadow-4.13.tar.xz.asc
@@ -44,6 +44,7 @@ Patch9: 0009-Make-glibc-give-up-memory-we-have-already-released.patch
 Patch10: 0010-Add-pam-files.patch
 Patch11: 0011-set-umask-to-027.patch
 Patch12: backport-contral-char-check.patch
+Patch13: backport-overhaul-valid-field.patch
 
 %description
 # shadow-utils
@@ -139,13 +140,14 @@ cd %{_builddir}/shadow-4.13
 %patch -P 10 -p1
 %patch -P 11 -p1
 %patch -P 12 -p1
+%patch -P 13 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1689120327
+export SOURCE_DATE_EPOCH=1689356314
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -173,7 +175,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1689120327
+export SOURCE_DATE_EPOCH=1689356314
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/shadow
 cp %{_builddir}/shadow-%{version}/COPYING %{buildroot}/usr/share/package-licenses/shadow/3dea080ea3c042311fbee5ac2a597e0453b5b924 || :
