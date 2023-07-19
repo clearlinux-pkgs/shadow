@@ -1,0 +1,55 @@
+From a269e99866eaba08fca56abf8f73b3d789110fcd Mon Sep 17 00:00:00 2001
+From: William Douglas <william.douglas@intel.com>
+Date: Tue, 18 Jul 2023 15:44:06 -0700
+Subject: [PATCH 12/12] Update stateless for shadow 4.13
+
+---
+ lib/groupio.c |  3 ++-
+ src/useradd.c | 10 +++++-----
+ 2 files changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/lib/groupio.c b/lib/groupio.c
+index ae14628..d8becaf 100644
+--- a/lib/groupio.c
++++ b/lib/groupio.c
+@@ -148,7 +148,8 @@ static /*@owned@*/struct commonio_db group_altdb = {
+ 	false,			/* changed */
+ 	false,			/* isopen */
+ 	false,			/* locked */
+-	false			/* readonly */
++	false,			/* readonly */
++	false			/* setname */
+ };
+ 
+ int gr_setdbname (const char *filename)
+diff --git a/src/useradd.c b/src/useradd.c
+index d99079a..effc64f 100644
+--- a/src/useradd.c
++++ b/src/useradd.c
+@@ -1729,6 +1729,11 @@ static void close_files (void)
+  */
+ static void close_group_files (void)
+ {
++	if (gralt_close () == 0) {
++		fprintf (stderr,
++		         _("%s: failure while writing changes to %s\n"),
++		         Prog, gralt_dbname ());
++	}
+ 	if (do_grp_update) {
+ 		if (gr_close () == 0) {
+ 			fprintf (stderr,
+@@ -1736,11 +1741,6 @@ static void close_group_files (void)
+ 			SYSLOG ((LOG_ERR, "failure while writing changes to %s", gr_dbname ()));
+ 			fail_exit (E_GRP_UPDATE);
+ 		}
+-		if (gralt_close () == 0) {
+-			fprintf (stderr,
+-			         _("%s: failure while writing changes to %s\n"),
+-			         Prog, gralt_dbname ());
+-		}
+ #ifdef	SHADOWGRP
+ 		if (is_shadow_grp && (sgr_close () == 0)) {
+ 			fprintf (stderr,
+-- 
+2.41.0
+

@@ -9,5 +9,6 @@
 0009-Make-glibc-give-up-memory-we-have-already-released.patch
 0010-Add-pam-files.patch
 0011-set-umask-to-027.patch
+0012-Update-stateless-for-shadow-4.13.patch
 backport-contral-char-check.patch
 backport-overhaul-valid-field.patch
