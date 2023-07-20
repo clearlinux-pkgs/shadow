@@ -1,7 +1,7 @@
-From 65d48ba55bd16da5371f05b0509a1cce3dd3a628 Mon Sep 17 00:00:00 2001
+From 62f328805f71f0e3ef7e9e9f3d3aafc9cf314dc7 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:20:43 -0700
-Subject: [PATCH 01/11] Make usermod, read altfiles.
+Subject: [PATCH 01/12] Make usermod, read altfiles.
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -185,5 +185,5 @@ index c1a5b2c..2852975 100644
  			fprintf (stderr,
  			         _("%s: cannot open %s\n"),
 -- 
-2.41.0
+2.40.1
 

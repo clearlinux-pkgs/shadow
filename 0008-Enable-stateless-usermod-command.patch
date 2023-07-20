@@ -1,7 +1,7 @@
-From 2634b3776886385628846a5585b0a885f48cea2c Mon Sep 17 00:00:00 2001
+From 71d88c993c719a01090a627ea50ff6a7c8112519 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:35:20 -0700
-Subject: [PATCH 08/11] Enable stateless usermod command
+Subject: [PATCH 08/12] Enable stateless usermod command
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -401,5 +401,5 @@ index 2852975..0299b10 100644
  			/* Update the shadow entry if it exists */
  			spent = *spwd;
 -- 
-2.41.0
+2.40.1
 

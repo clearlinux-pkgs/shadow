@@ -1,7 +1,7 @@
-From 601efc1e9b19a9cec2f256bc203c39fd51f005df Mon Sep 17 00:00:00 2001
+From f75d5bf2405f111e1bd4874dfb60ccedfd715924 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:27:31 -0700
-Subject: [PATCH 03/11] stateless configs
+Subject: [PATCH 03/12] stateless configs
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -31,5 +31,5 @@ index 37051a6..e3e5b87 100644
  static const char *def_shell = "/bin/bash";
  static const char *def_template = SKEL_DIR;
 -- 
-2.41.0
+2.40.1
 

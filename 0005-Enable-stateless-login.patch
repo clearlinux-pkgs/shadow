@@ -1,7 +1,7 @@
-From 2425a66a487076f48fe18b1e8f8b5d054a563148 Mon Sep 17 00:00:00 2001
+From fb12ae3b10978f5fd7a7828eab70ee22d041978a Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:28:31 -0700
-Subject: [PATCH 05/11] Enable stateless login
+Subject: [PATCH 05/12] Enable stateless login
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -33,5 +33,5 @@ index dcd1fe7..413eeb4 100644
  
  	error = econf_readDirs (&defs_file, vendordir, sysconfdir, "login", "defs", " \t", "#");
 -- 
-2.41.0
+2.40.1
 

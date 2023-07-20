@@ -1,7 +1,7 @@
-From 858899e3426395d17c22fe6ac09f1a78963b034e Mon Sep 17 00:00:00 2001
+From 84fd0169a9ab85920b08c1d06920923f3708dcee Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Tue, 17 Feb 2015 15:21:11 +0000
-Subject: [PATCH 04/11] Use correct pam.d path
+Subject: [PATCH 04/12] Use correct pam.d path
 
 Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
 ---
@@ -22,5 +22,5 @@ index 38ff26a..8e03387 100644
  if ACCT_TOOLS_SETUID
  pamd_DATA += $(pamd_acct_tools_files)
 -- 
-2.41.0
+2.40.1
 

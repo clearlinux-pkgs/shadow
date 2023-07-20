@@ -1,7 +1,7 @@
-From 2b89a92f59eec1d0965d8fe3ea3a205dc7fabe08 Mon Sep 17 00:00:00 2001
+From e67f1f1a0065a43a5cf69a4f0ddc67652b40b1bf Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:42:04 -0700
-Subject: [PATCH 10/11] Add pam files
+Subject: [PATCH 10/12] Add pam files
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -98,5 +98,5 @@ index 0000000..f534992
 +
 +password   include      common-password
 -- 
-2.41.0
+2.40.1
 

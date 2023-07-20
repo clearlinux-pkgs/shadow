@@ -1,7 +1,7 @@
-From 323b5b2927aab8264aae37e238420c526570ea98 Mon Sep 17 00:00:00 2001
+From bbb08cb45b5733808e7b94eb6c0422f89b06040e Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 3 Apr 2018 19:55:01 +0000
-Subject: [PATCH 07/11] Enable statless gpasswd
+Subject: [PATCH 07/12] Enable statless gpasswd
 
 ---
  src/gpasswd.c | 46 +++++++++++++++++++++++++++++++++++++++++-----
@@ -94,5 +94,5 @@ index 5983f78..0fdcc55 100644
  	if (is_shadowgrp) {
  		if (sgr_open (O_RDONLY) == 0) {
 -- 
-2.41.0
+2.40.1
 

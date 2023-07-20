@@ -1,7 +1,7 @@
-From f13f8756c736b4f73442f44a445d9be4a2db615e Mon Sep 17 00:00:00 2001
+From a8f66972f80ac0dd1e9409c4e1d556b8eb96752c Mon Sep 17 00:00:00 2001
 From: Miguel Bernal Marin <miguel.bernal.marin@linux.intel.com>
 Date: Wed, 19 Jun 2019 01:08:42 -0500
-Subject: [PATCH 11/11] set umask to 027
+Subject: [PATCH 11/12] set umask to 027
 
 To create new $HOME with a privacy concern in a multi-seat install.
 This value can be overwritten with /etc/login.defs file.
@@ -22,5 +22,5 @@ index 2bd3fc5..c0ea722 100644
  
  #endif				/* _GETDEF_H */
 -- 
-2.41.0
+2.40.1
 

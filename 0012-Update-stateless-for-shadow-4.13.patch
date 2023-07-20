@@ -1,4 +1,4 @@
-From a269e99866eaba08fca56abf8f73b3d789110fcd Mon Sep 17 00:00:00 2001
+From f91e8055b747ccaf452fcd005ad5a0b7a0c3b910 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 18 Jul 2023 15:44:06 -0700
 Subject: [PATCH 12/12] Update stateless for shadow 4.13
@@ -23,10 +23,10 @@ index ae14628..d8becaf 100644
  
  int gr_setdbname (const char *filename)
 diff --git a/src/useradd.c b/src/useradd.c
-index d99079a..effc64f 100644
+index 3e2f027..5edc9ae 100644
 --- a/src/useradd.c
 +++ b/src/useradd.c
-@@ -1729,6 +1729,11 @@ static void close_files (void)
+@@ -1732,6 +1732,11 @@ static void close_files (void)
   */
  static void close_group_files (void)
  {
@@ -38,7 +38,7 @@ index d99079a..effc64f 100644
  	if (do_grp_update) {
  		if (gr_close () == 0) {
  			fprintf (stderr,
-@@ -1736,11 +1741,6 @@ static void close_group_files (void)
+@@ -1739,11 +1744,6 @@ static void close_group_files (void)
  			SYSLOG ((LOG_ERR, "failure while writing changes to %s", gr_dbname ()));
  			fail_exit (E_GRP_UPDATE);
  		}
@@ -51,5 +51,5 @@ index d99079a..effc64f 100644
  		if (is_shadow_grp && (sgr_close () == 0)) {
  			fprintf (stderr,
 -- 
-2.41.0
+2.40.1
 

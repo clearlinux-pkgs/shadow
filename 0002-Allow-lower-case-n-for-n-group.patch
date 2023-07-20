@@ -1,7 +1,7 @@
-From c1d63f1e9a7bee18f6b387a9002f4e9e7a9a184b Mon Sep 17 00:00:00 2001
+From e93c60ad0e5dd775ca13f1834f34f5d27fad7796 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 11 Jul 2023 16:25:20 -0700
-Subject: [PATCH 02/11] Allow lower case n for n group
+Subject: [PATCH 02/12] Allow lower case n for n group
 
 Signed-off-by: William Douglas <william.douglas@intel.com>
 ---
@@ -38,5 +38,5 @@ index 7ea0a9c..37051a6 100644
  				Nflg = true;
  				break;
 -- 
-2.41.0
+2.40.1
 

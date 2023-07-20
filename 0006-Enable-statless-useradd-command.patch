@@ -1,17 +1,27 @@
-From 33a256fcc44903fe92b9d690d0b333de5da00a30 Mon Sep 17 00:00:00 2001
+From db799085207438d13582f8f9acd7c41f1ede8877 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 3 Apr 2018 19:54:03 +0000
-Subject: [PATCH 06/11] Enable statless useradd command
+Subject: [PATCH 06/12] Enable statless useradd command
 
 ---
- src/useradd.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ src/useradd.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/src/useradd.c b/src/useradd.c
-index e3e5b87..d99079a 100644
+index e3e5b87..3e2f027 100644
 --- a/src/useradd.c
 +++ b/src/useradd.c
-@@ -1030,6 +1030,17 @@ static void grp_update (void)
+@@ -874,6 +874,9 @@ static struct group * get_local_group(char * grp_name)
+ 	}
+ 	else {
+ 		grp = gr_locate(grp_name);
++		if (!grp) {
++			grp = gralt_locate(grp_name);
++		}
+ 	}
+ 
+ 	if (grp != NULL) {
+@@ -1030,6 +1033,17 @@ static void grp_update (void)
  	struct sgrp *nsgrp;
  #endif
  
@@ -29,7 +39,7 @@ index e3e5b87..d99079a 100644
  	/*
  	 * Scan through the entire group file looking for the groups that
  	 * the user is a member of.
-@@ -1725,6 +1736,11 @@ static void close_group_files (void)
+@@ -1725,6 +1739,11 @@ static void close_group_files (void)
  			SYSLOG ((LOG_ERR, "failure while writing changes to %s", gr_dbname ()));
  			fail_exit (E_GRP_UPDATE);
  		}
@@ -41,7 +51,7 @@ index e3e5b87..d99079a 100644
  #ifdef	SHADOWGRP
  		if (is_shadow_grp && (sgr_close () == 0)) {
  			fprintf (stderr,
-@@ -1841,6 +1857,11 @@ static void open_group_files (void)
+@@ -1841,6 +1860,11 @@ static void open_group_files (void)
  		fail_exit (E_GRP_UPDATE);
  	}
  	gr_locked = true;
@@ -54,5 +64,5 @@ index e3e5b87..d99079a 100644
  		fprintf (stderr, _("%s: cannot open %s\n"), Prog, gr_dbname ());
  		fail_exit (E_GRP_UPDATE);
 -- 
-2.41.0
+2.40.1
 
